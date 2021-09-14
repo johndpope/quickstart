@@ -7,8 +7,8 @@ x-environment:
   PLAID_COUNTRY_CODES: ${PLAID_COUNTRY_CODES}
   PLAID_REDIRECT_URI: ${PLAID_REDIRECT_URI}
   PLAID_ENV: ${PLAID_ENV}
-  # AWS_REGION: "us-east-2"
-
+  REACT_APP_API_HOST: "www.covershot.app"
+  HOST: "frontend"
 services:
   go:
     networks:
@@ -22,14 +22,14 @@ services:
  
   frontend:
     environment:
-      - REACT_APP_API_HOST
-      # - HOST=www.covershot.app # NO https://
+      <<: *QUICKSTART_ENVIRONMENT
     networks:
       - "quickstart"
+    image: "frontend"
     # image: "100418366104.dkr.ecr.us-east-2.amazonaws.com/fundfi:frontend"
-    build:
-        dockerfile: ./frontend/Dockerfile
-        context: .
+    # build:
+    #     dockerfile: ./frontend/Dockerfile
+    #     context: .
     ports: ["3000:3000"]
   nginx:
     networks:
